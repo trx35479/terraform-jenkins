@@ -31,8 +31,6 @@ node {
     }
     
     stage ('Terraform Plan') {
-      withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'), 
-                       string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
         sh """
          set +x
          terraform plan -var-file=${environment}.tfvars -out=create.tfplan 
@@ -44,8 +42,6 @@ node {
     input 'Deploy stack?'
     
     stage ('Terraform Apply') {
-      withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'), 
-                       string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
         sh """
          set +x
          terraform apply create.tfplan 
