@@ -37,7 +37,7 @@ node {
          set +x
          terraform plan -var-file=${environment}.tfvars -out=create.tfplan 
          """
-                       }  
+      }  
     }
 
     // wait for approval. If Plan checks out.
@@ -62,19 +62,9 @@ node {
        """
     }
 
-    stage ('Push and Merge Terraform State') {
-      sh """
-        set +x 
-        git add terraform.tfstate* *-secrets.tfvars
-        git commit -am 'Commit Terraform State - Jenkins Job ${env.JOB_NAME} - build  ${env.BUILD_NUMBER} for ${environment}'
-        git push origin HEAD:master
-        """
-
-    }
-
     stage ('Notify') {
-      mail from: "email@email.com",
-           to: "email@email.com",
+      mail from: "rowel.uchi@unico.com.au",
+           to: "rowel.uchi@unico.com.au",
            subject: "Terraform Build for ${environment} Complete.",
            body: "Jenkins Job ${env.JOB_NAME} - build  ${env.BUILD_NUMBER} for ${environment}. Please investigate."
     }
