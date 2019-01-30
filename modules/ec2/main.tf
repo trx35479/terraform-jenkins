@@ -2,7 +2,7 @@
 
 resource "aws_instance" "vha-instance" {
   ami                    = "${var.IMAGE_ID}"
-  count                  = "${var.COUNT[0] == "true" ? var.COUNT[1] : 0}"
+  count                  = "${element(var.COUNT, 0) == "true" ? element(var.COUNT, 1) : 0}"
   instance_type          = "${var.FLAVOR}"
   subnet_id              = "${element(var.SUBNET_ID, count.index)}"
   vpc_security_group_ids = ["${var.VPC_SECURITY_GROUP_IDS}"]

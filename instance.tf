@@ -1,6 +1,8 @@
 # Instantiating the module
 
 provider "aws" {
+  access_key = "${var.AWS_ACCESS_KEY_ID}"
+  secret_key = "${var.AWS_SECRET_ACCESS_KEY}"
   region = "${var.AWS_REGION}"
 }
 
@@ -17,7 +19,7 @@ module "vha-instance" {
   FLAVOR                 = "t2.micro"
   SUBNET_ID              = "${data.aws_subnet_ids.unico-private-subnets.ids}"
   VPC_SECURITY_GROUP_IDS = "${data.aws_security_groups.unico-security-groups.ids}"
-  COUNT                  = ["true", 1]
+  COUNT                  = ["true", 2]
   TAGS                   = ["Unico-VHA", "DevOps", "10x5"]
 }
 
