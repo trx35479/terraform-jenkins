@@ -35,7 +35,6 @@ node {
          set +x
          terraform plan -var-file=${environment}.tfvars -out=create.tfplan 
          """
-      }  
     }
 
     // wait for approval. If Plan checks out.
@@ -46,7 +45,6 @@ node {
          set +x
          terraform apply create.tfplan 
          """
-       }  
     }
     
     // we should include testing stage(s) here. test-kitchen, infospec, etc... 
